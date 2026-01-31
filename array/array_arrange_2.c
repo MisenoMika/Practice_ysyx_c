@@ -1,39 +1,30 @@
 #include <stdio.h>
-#define N 3
-#define M 2
-void swap(int* a, int index1, int index2){
-    int temp = a[index1];
-    a[index1] = a[index2];
-    a[index2] = temp;
 
-}
-void printArrange(int* a, int start, int next, int last){
-    printf("%d  ", a[start]);
-    for(int i=next; i<last; i++){
-        printf("%d  ", a[i]);
-    }
-    printf("\n");
-}
+int N, M;
+int path[100];
 
-void combination(int* a, int start, int last, int next,int depth){
-    if(next + depth == last){
+void dfs(int start, int depth)
+{
+    // 终止条件：已经选了 M 个
+    if (depth == M) {
+        for (int i = 0; i < M; i++) {
+            printf("%d ", path[i]);
+        }
+        printf("\n");
         return;
     }
-    else {
-        printArrange(a, start, next, last);
+
+    // 从 start 开始选
+    for (int i = start; i <= N; i++) {
+        path[depth] = i;
+        dfs(i + 1, depth + 1);  // 只能选后面的数
     }
-    for(int i=0; i<last-1; i++){
-        swap(a, start, i);
-        combination(a, start, last, next+1, depth);
-        swap(a, start, i);
-    }
-    
 }
 
-int main(void){
-    int a[N];
-    for(int i = 0; i < N; i++){
-        a[i] = i+1;
-    }
-    combination(a, 0, N, M, M);
+int main(void)
+{
+    N = 5;
+    M = 3;
+    dfs(1, 0);
+    return 0;
 }
