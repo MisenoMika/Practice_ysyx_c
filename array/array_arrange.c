@@ -14,15 +14,15 @@ void printArrange(int* a, int max){
     printf("\n");
 }
 
-void arrangement(int *a, int start, int last){
-    if(start == last){
-        printArrange(a, last);
+void arrangement(int *a, int start, int depth){
+    if(start == depth){
+        printArrange(a, depth);
         return;
     }
 
-    for(int i = start; i < last; i++){
+    for(int i = start; i < N; i++){
         swap(a, start, i);
-        arrangement(a, start + 1, last);
+        arrangement(a, start + 1, M);
         swap(a, start, i);
     }
 }
@@ -32,5 +32,5 @@ int main(void){
     for(int i = 0; i < N; i++){
         a[i] = i+1;
     }
-    arrangement(a, 0, N);
+    arrangement(a, 0, M);
 }
