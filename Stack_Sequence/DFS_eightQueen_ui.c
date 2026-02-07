@@ -5,7 +5,6 @@
 
 int solution_count = 0;
 
-/* 判断 (row, col) 是否安全 */
 bool is_safe(int board[], int row, int col) {
     for (int i = 0; i < row; i++) {
         if (board[i] == col ||                 // 同列
@@ -17,7 +16,6 @@ bool is_safe(int board[], int row, int col) {
     return true;
 }
 
-/* 打印棋盘 */
 void print_board(int board[]) {
     printf("方案 %d:\n", ++solution_count);
     for (int i = 0; i < N; i++) {
@@ -32,7 +30,6 @@ void print_board(int board[]) {
     printf("\n");
 }
 
-/* 回溯 / DFS */
 void solve(int row, int board[]) {
     if (row == N) {
         print_board(board);

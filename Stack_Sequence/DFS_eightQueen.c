@@ -1,26 +1,23 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#define N 8  // 皇后数量
+#define N 8  
 
 int solution_count = 0;
 
-// 检查第 row 行放在 col 列是否安全
 bool is_safe(int board[], int row, int col) {
     for (int i = 0; i < row; i++) {
-        if (board[i] == col ||                 // 同列冲突
-            board[i] - i == col - row ||       // 左上对角线冲突
-            board[i] + i == col + row) {       // 右上对角线冲突
+        if (board[i] == col ||                
+            board[i] - i == col - row ||      
+            board[i] + i == col + row) {       
             return false;
         }
     }
     return true;
 }
 
-// 回溯函数
 void solve(int row, int board[]) {
     if (row == N) {
-        // 找到一个合法解，打印
         solution_count++;
         printf("方案 %d: ", solution_count);
         for (int i = 0; i < N; i++) {
