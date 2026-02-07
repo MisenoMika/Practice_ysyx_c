@@ -1,26 +1,7 @@
- #include <stdio.h>
-
+#include <stdio.h>
+#include <stdbool.h>
 #define MAX_ROW 5
 #define MAX_COL 5
-
-struct point { int row, col; } stack[512];
-int top = 0;
-
-void push(struct point p)
-{
-	stack[top++] = p;
-}
-
-struct point pop(void)
-{
-	return stack[--top];
-}
-
-int is_empty(void)
-{
-	return top == 0;
-}
-
 int maze[MAX_ROW][MAX_COL] = {
     {0, 1, 0, 0, 0},
     {0, 1, 0, 1, 0},
@@ -28,7 +9,7 @@ int maze[MAX_ROW][MAX_COL] = {
     {0, 1, 1, 1, 0},
     {0, 0, 0, 1, 0}
 };
-
+bool visited[MAX_ROW][MAX_COL] = {false};
 void print_maze(void)
 {
 	int i, j;
@@ -39,46 +20,51 @@ void print_maze(void)
 	}
 	printf("*********\n");
 }
+bool dfs (int row, int col){
+	if(row > MAX_ROW-1 || col > MAX_COL-1 || row < 0 || col < 0){
+		return false;
+	}
+	
+	if(maze[row][col] == 1 || visited[row][col]){
+		return false;
+	}
 
-void visit(int row, int col, struct point pre)
-{
-	struct point visit_point = { row, col };
-	maze[row][col] = 2;
-	push(visit_point);
+	visited[row][col] = true;
+
+	if(row == MAX_ROW-1 && col == MAX_COL-1){
+		printf("(%d, %d)\n", row, col);
+		return true;
+	}
+
+
+	if(dfs(row+1, col) || dfs(row-1, col) || dfs(row, col+1) || dfs(row, col-1)){
+		printf("(%d, %d)\n", row, col);
+		return true;
+	}
+	return false;
 }
-
-void dfs(int row, int col){
-    if(row > 0){
-        if(maze[row][col] == 2)printf(("%d, %d"), row, col);
-        else {
-            dfs(row, col-1);
-            dfs(row-1, col);
-        }
-    }
-}
-
 int main(void)
 {
-	struct point p = { 0, 0 };
+	/*struct point p = { 0, 0 };
 
 	maze[p.row][p.col] = 2;
 	push(p);	
 	
 	while (!is_empty()) {
 		p = pop();
-		if (p.row == MAX_ROW - 1  /* goal */
+		if (p.row == MAX_ROW - 1 
 		    && p.col == MAX_COL - 1)
 			break;
-		if (p.col+1 < MAX_COL     /* right */
+		if (p.col+1 < MAX_COL    
 		    && maze[p.row][p.col+1] == 0)
 			visit(p.row, p.col+1, p);
-		if (p.row+1 < MAX_ROW     /* down */
+		if (p.row+1 < MAX_ROW     
 		    && maze[p.row+1][p.col] == 0)
 			visit(p.row+1, p.col, p);
-		if (p.col-1 >= 0          /* left */
+		if (p.col-1 >= 0          
 		    && maze[p.row][p.col-1] == 0)
 			visit(p.row, p.col-1, p);
-		if (p.row-1 >= 0          /* up */
+		if (p.row-1 >= 0         
 		    && maze[p.row-1][p.col] == 0)
 			visit(p.row-1, p.col, p);
 		print_maze();
@@ -88,6 +74,7 @@ int main(void)
 	} 
     else{
 		printf("No path!\n");
-    }
+    }*/
+	dfs(0, 0);
 	return 0;
 }
