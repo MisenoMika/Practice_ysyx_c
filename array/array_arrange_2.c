@@ -13,8 +13,8 @@ void dfs(int start, int depth){
         printf("\n");
     }
     else {
-        for(int i= start; i<N; i++){
-            nums_index[depth] = i;
+        for(int i= start; i<N; i++){ // 隐式剪枝（implicit pruning）
+            nums_index[depth] = i; // 当for循环不成立的时候跳过for循环,然后返回
             dfs(i+1, depth+1);
         }
     }
