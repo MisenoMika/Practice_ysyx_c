@@ -3,21 +3,39 @@
 #define MAX_ROW 5
 #define MAX_COL 5
 
-struct point { int row, col, predecessor; } queue[MAX_COL * MAX_ROW];
+struct point { int row, col, predecessor; } queue[8];
 int head = 0, tail = 0;
+int last_head = 0, last_tail = 0;
 
-void enqueue(struct point p) {
-	queue[tail++] = p;
+void enqueue(struct point p){
+    int next_tail = (tail + 1) % (MAX_ROW*MAX_COL);
+    if(next_tail == head){ // 队列满
+        printf("Queue is full!\n");
+        return;
+    }
+    queue[tail] = p;
+    tail = next_tail;
 }
 
 struct point dequeue(void)
 {
-	return queue[head++];
+    struct point p = queue[head];
+    int next_head = (head+1) % (MAX_COL*MAX_ROW);
+    if(next_head == tail){
+        printf("Queue is empty!\n");
+    }
+    head = next_head;
+	return p;
 }
 
 int is_empty(void)
 {
 	return head == tail;
+}
+
+
+int is_full(void){
+    return ( (tail + 1) % (MAX_ROW*MAX_COL) ) == head;
 }
 
 int maze[MAX_ROW][MAX_COL] = {
@@ -41,7 +59,7 @@ void print_maze(void) {
 
 void visit(int row, int col)
 {
-	struct point visit_point = { row, col, head-1 };
+	struct point visit_point = {row, col, (head == 0)? (MAX_COL*MAX_ROW)-1 : head -1};
 	maze[row][col] = 2;
 	enqueue(visit_point);
 }
@@ -83,6 +101,3 @@ int main(void)
 
 	return 0;
 }
-/* 由于广度优先搜索中每个可达结点至多入队一次，而在搜索过程中队列中可能同时保存所有已发现但尚未访问的结点，
- * 因此队列所需的最小容量应不小于迷宫中可达结点的总数。在本例中迷宫大小为 5×5，
- * 最坏情况下需要至少 25 个队列元素。队列空间大小主要与迷宫规模及可达区域大小有关。*/

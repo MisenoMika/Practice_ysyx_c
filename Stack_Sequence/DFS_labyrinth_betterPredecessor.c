@@ -54,7 +54,7 @@ void visit(int row, int col, struct point pre)
 	struct point visit_point = { row, col };
 	maze[row][col] = 2;
 	predecessor[row][col] = (pre.row - row == 1)? DOWN : 
-                            (pre.row - row == -1)? UP:
+                            (pre.row - row == -1)? UP :
                             (pre.col - col == -1)? LEFT :
                             (pre.col - col == 1)? RIGHT :
                             NONE;
