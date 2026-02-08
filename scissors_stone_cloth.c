@@ -19,6 +19,8 @@ int main(void)
         }
 	  	if (ret != 1 || man < 0 || man > 2) {
 			printf("Invalid input! Please input 0, 1 or 2.\n");
+			int c;
+    		while ((c = getchar()) != '\n' && c != EOF){} // 清空缓冲区
 			continue;
 		}
 		printf("Your gesture: %s\tComputer's gesture: %s\n", 
@@ -34,3 +36,12 @@ int main(void)
 	}
 	return 0;
 }
+/*scanf 的返回值是一个 int，表示 成功读取的输入项数量。
+
+* 如果成功读取了一个整数 → 返回 1
+
+* 如果成功读取了两个整数 → 返回 2（你这里只读一个，所以不可能）
+
+* 如果输入不符合 %d → 返回 0
+
+* 如果遇到文件结束（EOF） → 返回 EOF（通常是 -1）*/
