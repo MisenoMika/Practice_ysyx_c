@@ -5,7 +5,7 @@
 
 struct point { int row, col, predecessor; } queue[8];
 int head = 0, tail = 0;
-int last_head = 0, last_tail = 0;
+
 
 void enqueue(struct point p){
     int next_tail = (tail + 1) % (MAX_ROW*MAX_COL);

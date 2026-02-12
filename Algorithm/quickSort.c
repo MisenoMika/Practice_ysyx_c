@@ -15,6 +15,7 @@ int partition(int start, int end)
             a[j] = tmp;
         }
     }
+    printf("pivot = %d, a[i=%d] = %d\n", pivot, i, a[i]);
     a[start] = a[i];
     a[i] = pivot;
     return i;

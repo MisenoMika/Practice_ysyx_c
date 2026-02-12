@@ -1,6 +1,6 @@
 #include <stdio.h>
-#define N 3
-#define M 2
+#define N 3 // 总共多少数
+#define M 2 // 取多少数进行全排列
 void swap(int* a, int index1, int index2){
     int temp = a[index1];
     a[index1] = a[index2];
