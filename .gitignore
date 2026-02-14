@@ -1,0 +1,14 @@
+*.exe
+*.o
+build/
+launch.json
+
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+.idea/
+.vscode/
+*.pyc
+test*
