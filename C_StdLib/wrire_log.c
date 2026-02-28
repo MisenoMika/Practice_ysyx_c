@@ -11,7 +11,7 @@ volatile sig_atomic_t stop = 0;
 
 /* 处理 Ctrl-C */
 void handle_sigint(int sig) {
-    stop = 1;
+    stop = 1; // 不在handler直接exit: 延时处理,保证printf等正确执行
 }
 
 /* 读取文件最后一行的序号 */
