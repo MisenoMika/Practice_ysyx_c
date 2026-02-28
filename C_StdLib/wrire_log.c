@@ -9,12 +9,12 @@
 
 volatile sig_atomic_t stop = 0;
 
-/* 处理 Ctrl-C */
+
 void handle_sigint(int sig) {
     stop = 1; // 不在handler直接exit: 延时处理,保证printf等正确执行
 }
 
-/* 读取文件最后一行的序号 */
+
 int get_last_index(FILE *fp) {
     int last_index = 0;
     char line[256];
@@ -32,7 +32,7 @@ int get_last_index(FILE *fp) {
 }
 
 int main() {
-    signal(SIGINT, handle_sigint);
+    signal(SIGINT, handle_sigint); // 自定义signal的处理逻辑
 
     FILE *fp = fopen(FILENAME, "a+");
     if (!fp) {
