@@ -19,8 +19,7 @@ void process(const char *file, const char *dir)
         {
             char path[PATH_MAX];
 
-            // 先查当前目录
-            sprintf(path, "%s/%s", dir, name);
+            sprintf(path, "%s/%s", dir, name); // 当前目录
             FILE *f = fopen(path, "r");
             if (f)
             {
@@ -29,8 +28,7 @@ void process(const char *file, const char *dir)
                 realpath(path, abs);
                 printf("%s\n", abs);
 
-                // 递归解析
-                process(abs, dir);
+                process(abs, dir); 
             }
             else
             {
