@@ -6,5 +6,7 @@ ex1: ex1.c
 	$(CC) $(CFLAGS) -o ex1.exe ex1.c
 ex3: ex3.c
 	$(CC) $(CFLAGS) -o ex3.exe ex3.c
+ex18: ex18.c
+	$(CC) $(CFLAGS) -o ex18.exe ex18.c
 clean:
 	rm -f ex1.exe ex3.exe
