@@ -178,10 +178,20 @@ void Database_get(struct Connection *conn, int id)
     }
 }
 
+/*注意action为d时, 由于创建了临时变量addr以覆盖row[id],而结构体内含有指针
+  需要先释放掉之前存在dat文件并且被struct database读取的内存. */
 void Database_delete(struct Connection *conn, int id)
 {
-    struct Address addr = {.id = id, .set = 0};
-    conn->db->rows[id] = addr;
+    struct Address *addr = &conn->db->rows[id];
+
+    if(addr->set) {
+        free(addr->name);
+        free(addr->email);
+        addr->name = calloc(conn->db->max_data, 1);
+        addr->email = calloc(conn->db->max_data, 1);
+        if(!addr->name || !addr->email) die("Memory error", conn);
+        addr->set = 0;
+    }
 }
 
 void Database_list(struct Connection *conn)

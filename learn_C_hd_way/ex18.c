@@ -47,6 +47,55 @@ int *bubble_sort(int *numbers, int count, compare_cb cmp)
     return target;
 }
 
+void merge(int a[], int start, int mid, int end, compare_cb cmp)
+{
+	int n1 = mid - start + 1;
+	int n2 = end - mid;
+	int left[n1], right[n2];
+	int i, j, k;
+
+	for (i = 0; i < n1; i++) /* left holds a[start..mid] */
+		left[i] = a[start+i];
+	for (j = 0; j < n2; j++) /* right holds a[mid+1..end] */
+		right[j] = a[mid+1+j];
+
+	i = j = 0;
+	k = start;
+	while (i < n1 && j < n2)
+		if (cmp(left[i], right[j]) < 0)
+			a[k++] = left[i++];
+		else
+			a[k++] = right[j++];
+
+	while (i < n1) /* left[] is not exhausted */
+		a[k++] = left[i++];
+	while (j < n2) /* right[] is not exhausted */
+		a[k++] = right[j++];
+}
+
+void merge_sort(int a[], int start, int end, compare_cb cmp)
+{
+    int mid;
+    if (start < end) {
+        mid = (start + end) / 2;
+        merge_sort(a, start, mid, cmp);
+        merge_sort(a, mid+1, end, cmp);
+        merge(a, start, mid, end, cmp);
+    }
+}
+
+int *merge_sort_wrapper(int *numbers, int count, compare_cb cmp)
+{
+    int *target = malloc(count * sizeof(int));
+    if(!target) die("Memory error.");
+
+    memcpy(target, numbers, count * sizeof(int));
+
+    merge_sort(target, 0, count - 1, cmp);
+
+    return target;
+}
+
 int sorted_order(int a, int b)
 {
     return a - b;
@@ -65,34 +114,27 @@ int strange_order(int a, int b)
         return a % b;
     }
 }
-
+    // this is going to be a big function so I won't write it here
 /**
  * Used to test that we are sorting things correctly
  * by doing the sort and printing it out.
  */
-void test_sorting(int *numbers, int count, compare_cb cmp)
-{   
-    
+void test_sorting(int *numbers, int count, int *(*sort_func)(int *, int, compare_cb), compare_cb cmp)
+{
     int i = 0;
-    int *sorted = bubble_sort(numbers, count, cmp);
 
-    if(!sorted) die("Failed to sort as requested.");
+    int *sorted = sort_func(numbers, count, cmp);
+
+    if(!sorted) die("Failed to sort.");
 
     for(i = 0; i < count; i++) {
         printf("%d ", sorted[i]);
     }
+
     printf("\n");
 
     free(sorted);
-    unsigned char *data = (unsigned char *)cmp;
-
-    for(i = 0; i < 25; i++) {
-        printf("%02x:", data[i]);
-    }
-
-    printf("\n");
 }
-
 
 int main(int argc, char *argv[])
 {
@@ -109,9 +151,11 @@ int main(int argc, char *argv[])
         numbers[i] = atoi(inputs[i]);
     }
 
-    test_sorting(numbers, count, sorted_order);
-    test_sorting(numbers, count, reverse_order);
-    test_sorting(numbers, count, strange_order);
+    test_sorting(numbers, count, bubble_sort, sorted_order);
+    test_sorting(numbers, count, merge_sort_wrapper, sorted_order);
+    printf("\nreverse_order: \n");
+    test_sorting(numbers, count, bubble_sort, reverse_order);
+    test_sorting(numbers, count, merge_sort_wrapper, reverse_order);
     
     free(numbers);
 
