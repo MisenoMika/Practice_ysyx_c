@@ -4,6 +4,7 @@
 #include <string.h>
 #include <time.h>
 #include "ex19.h"
+#include <assert.h>
 
 
 int Monster_attack(void *self, int damage)
@@ -16,9 +17,10 @@ int Monster_attack(void *self, int damage)
 
     if(monster->hit_points > 0) {
         printf("It is still alive.\n");
+        printf("Hit points left: %d\n", monster->hit_points);
         return 0;
     } else {
-        printf("It is dead!\n");
+        printf("%s is dead!\n", monster->_(description));
         return 1;
     }
 }
@@ -61,7 +63,7 @@ void *Room_move(void *self, Direction direction)
     if(next) {
         next->_(describe)(next);
     }
-
+    assert(next != NULL);
     return next;
 }
 
@@ -98,7 +100,7 @@ void *Map_move(void *self, Direction direction)
     if(next) {
         map->location = next;
     }
-
+    assert(next != NULL);
     return next;
 }
 
@@ -120,13 +122,14 @@ int Map_init(void *self)
     Room *throne = NEW(Room, "The throne room");
     Room *arena = NEW(Room, "The arena, with the minotaur");
     Room *kitchen = NEW(Room, "Kitchen, you have the knife now");
-
+    Room *treasure_house = NEW(Room, "Treause_house filled with WuMengDX\nbut there is a evil WuLiFang");
     // put the bad guy in the arena
     arena->bad_guy = NEW(Monster, "The evil minotaur");
-
+    treasure_house -> bad_guy = NEW(Monster, "The evil WuLiFANF");
     // setup the map rooms
     hall->north = throne;
-
+    hall->south = treasure_house;
+    treasure_house->north = hall;
     throne->west = arena;
     throne->east = kitchen;
     throne->south = hall;
