@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
-
+#include <assert.h>
 /** Our old friend die from ex17. */
 void die(const char *message)
 {
@@ -25,6 +25,7 @@ typedef int (*compare_cb)(int a, int b);
  */
 int *bubble_sort(int *numbers, int count, compare_cb cmp)
 {
+    assert(numbers != NULL && "numbers being sorted are NULL");
     int temp = 0;
     int i = 0;
     int j = 0;
@@ -156,8 +157,8 @@ int main(int argc, char *argv[])
     printf("\nreverse_order: \n");
     test_sorting(numbers, count, bubble_sort, reverse_order);
     test_sorting(numbers, count, merge_sort_wrapper, reverse_order);
-    
     free(numbers);
-
+    numbers = NULL;
+    test_sorting(numbers, count, bubble_sort, reverse_order);
     return 0;
 }
