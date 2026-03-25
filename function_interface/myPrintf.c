@@ -137,6 +137,6 @@ void myprintf(const char *format, ...)
 
 int main(void)
 {
-     myprintf("%c\t%s\t%d\t%f\n", '1', "hello", -200, -1.145);
+     myprintf("%c\t%s\t%d\t%f\nhi\n", '1', "hello", -200, -1.145);
      return 0;
 }

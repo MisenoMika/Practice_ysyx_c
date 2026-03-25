@@ -62,7 +62,7 @@ int move_east(void *game);
 int move_west(void *game);
 int attack_action(void *game);
 int cast_spell(void *game);
-
+int show_commands(void *game);
 extern Command commands[];
 extern int commands_count;
 

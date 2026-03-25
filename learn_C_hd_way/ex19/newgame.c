@@ -33,6 +33,7 @@ Command commands[] = {
     {'e', move_east},
     {'a', attack_action},
     {'m', cast_spell},
+    {'l', show_commands},
     {-1, game_end}
 };
 
@@ -91,6 +92,14 @@ int attack_action(void *self) {
 
 int cast_spell(void *self) {
     printf("You cast a spell... but nothing happens.\n");
+    return 1;
+}
+
+int show_commands(void *self) {
+    printf("You can:\n");
+    for(int i = 0; i < commands_count; i++) {
+        printf("%c\n", commands[i].key);
+    }
     return 1;
 }
 

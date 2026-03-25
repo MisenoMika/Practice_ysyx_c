@@ -22,7 +22,7 @@ struct Connection {
     FILE *file;
     struct Database *db;
 };
-struct Connection *conn = NULL;
+static struct Connection *conn = NULL;
 
 void die(const char *message)
 {
