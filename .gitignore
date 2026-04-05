@@ -12,4 +12,8 @@ launch.json
 .vscode/
 *.pyc
 test*
+!Prj_E4/minirvEMU/test_cmd/
+!Prj_E4/minirvEMU/test_cmd/**
+!Prj_E4/minirvEMU/tests/
+!Prj_E4/minirvEMU/tests/**
 *.dat
