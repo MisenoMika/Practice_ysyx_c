@@ -1,0 +1,27 @@
+DEBUG tests/sort_tests.c:156: ----- RUNNING: ./tests/sort_tests
+DEBUG tests/sort_tests.c:147: 
+----- test_bubble_sort
+[INFO] (src/lcthw/list_algo.c: 44: List_bubble_sort: errno: None) Already sorted
+[WARN] (src/lcthw/list_algo.c: 38: List_bubble_sort: errno: None) Empty list!
+DEBUG tests/sort_tests.c:149: 
+----- test_node_mv
+DEBUG tests/sort_tests.c:151: 
+----- test_merge_sort
+DEBUG tests/sort_tests.c:156: ----- RUNNING: ./tests/sort_tests
+DEBUG tests/sort_tests.c:147: 
+----- test_bubble_sort
+[INFO] (src/lcthw/list_algo.c: 44: List_bubble_sort: errno: None) Already sorted
+[WARN] (src/lcthw/list_algo.c: 38: List_bubble_sort: errno: None) Empty list!
+DEBUG tests/sort_tests.c:149: 
+----- test_node_mv
+DEBUG tests/sort_tests.c:151: 
+----- test_merge_sort
+DEBUG tests/sort_tests.c:156: ----- RUNNING: ./tests/sort_tests
+DEBUG tests/sort_tests.c:147: 
+----- test_bubble_sort
+[INFO] (src/lcthw/list_algo.c: 44: List_bubble_sort: errno: None) Already sorted
+[WARN] (src/lcthw/list_algo.c: 38: List_bubble_sort: errno: None) Empty list!
+DEBUG tests/sort_tests.c:149: 
+----- test_node_mv
+DEBUG tests/sort_tests.c:151: 
+----- test_merge_sort
